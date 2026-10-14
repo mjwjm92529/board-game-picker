@@ -14,6 +14,11 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <!-- Canvas Confetti -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    
+    <!-- Firebase App & Firestore SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
     <script>
         tailwind.config = {
             theme: {
@@ -69,12 +74,6 @@
         }
         .hide-scrollbar::-webkit-scrollbar { display: none; }
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        .card-pattern {
-            background-image: radial-gradient(#FF5C52 1.5px, transparent 1.5px), radial-gradient(#14B8A6 1.5px, #FDF8F2 1.5px);
-            background-size: 60px 60px;
-            background-position: 0 0, 30px 30px;
-            opacity: 0.25;
-        }
     </style>
 </head>
 <body class="bg-cream text-plum-900 min-h-full flex flex-col relative overflow-x-hidden selection:bg-coral-400 selection:text-white">
@@ -89,7 +88,6 @@
             <!-- Logo Section -->
             <div class="flex items-center space-x-3">
                 <div class="w-12 h-12 bg-coral-500 border-2 border-plum-900 rounded-2xl shadow-fun-sm flex items-center justify-center transform -rotate-3 hover:rotate-0 transition">
-                    <!-- Meeple SVG Illustration -->
                     <svg class="w-7 h-7 text-white fill-current" viewBox="0 0 24 24">
                         <path d="M12 2a3 3 0 0 1 3 3c0 1.2-.7 2.2-1.7 2.7.7.3 3.7 1.8 4.7 3.3 1 1.5 1 3.5 1 5s-.5 3-1.5 3.5c-.7.3-1.5 0-2.5 0s-2 .5-3 1c-.5.3-1 .5-2 .5s-1.5-.2-2-.5c-1-.5-2-1-3-1s-1.8.3-2.5 0C2.5 22.5 2 21 2 19.5s0-3.5 1-5c1-1.5 4-3 4.7-3.3C6.7 10.2 6 9.2 6 8a3 3 0 0 1 6-6z"/>
                     </svg>
@@ -131,12 +129,8 @@
 
         <!-- TAB 1: COLLECTION VIEW -->
         <section id="tab-collection" class="space-y-6">
-            
-            <!-- Filters & Search Toolbar -->
             <div class="bg-white border-2 border-plum-900/15 rounded-3xl p-5 shadow-fun-sm space-y-4">
                 <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
-                    
-                    <!-- Search Field -->
                     <div class="relative w-full md:w-80">
                         <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-plum-900/40">
                             <i data-lucide="search" class="w-4 h-4"></i>
@@ -144,7 +138,6 @@
                         <input type="text" id="search-input" oninput="filterGames()" placeholder="Search game titles..." class="w-full pl-10 pr-4 py-2.5 bg-sand/50 border-2 border-plum-900/10 rounded-2xl text-sm font-medium focus:outline-none focus:border-coral-500 text-plum-900 placeholder-plum-900/40 transition">
                     </div>
 
-                    <!-- Filter Dropdowns -->
                     <div class="flex flex-wrap items-center gap-3 w-full md:w-auto">
                         <select id="filter-genre" onchange="filterGames()" class="bg-sand/50 border-2 border-plum-900/10 text-plum-900 text-sm font-semibold rounded-2xl px-3.5 py-2.5 focus:outline-none focus:border-coral-500">
                             <option value="">All Categories</option>
@@ -178,9 +171,7 @@
             </div>
 
             <!-- Board Game Cards Grid -->
-            <div id="game-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                <!-- Dynamically Populated via JS -->
-            </div>
+            <div id="game-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
 
             <!-- Empty State -->
             <div id="empty-state" class="hidden text-center py-16 bg-white border-2 border-dashed border-plum-900/20 rounded-3xl">
@@ -196,8 +187,6 @@
         <!-- TAB 2: DECISION WIZARD -->
         <section id="tab-wizard" class="hidden space-y-6 max-w-3xl mx-auto">
             <div class="bg-white border-2 border-plum-900/15 rounded-3xl p-6 sm:p-10 shadow-fun relative overflow-hidden">
-                
-                <!-- Progress Header -->
                 <div class="space-y-2 mb-8">
                     <div class="flex items-center justify-between text-xs font-display font-bold text-plum-900/60 uppercase tracking-wider">
                         <span>Game Night Wizard</span>
@@ -208,10 +197,8 @@
                     </div>
                 </div>
 
-                <!-- Wizard Steps Container -->
                 <div id="wizard-step-content">
-                    
-                    <!-- Step 1: Player Count -->
+                    <!-- Step 1: Players -->
                     <div class="wizard-step space-y-6" data-step="1">
                         <div class="text-center space-y-2">
                             <h2 class="text-3xl font-display font-bold text-plum-900">How many people are playing tonight?</h2>
@@ -221,27 +208,23 @@
                             <button onclick="wizardData.players = 1; nextWizardStep();" class="p-5 bg-sand/40 hover:bg-teal-100/60 border-2 border-plum-900/10 hover:border-teal-500 rounded-2xl text-center transition transform hover:-translate-y-1 group">
                                 <div class="w-12 h-12 bg-teal-500 text-white rounded-2xl border-2 border-plum-900 mx-auto mb-3 flex items-center justify-center font-display font-bold text-lg shadow-fun-sm">1</div>
                                 <span class="font-display font-bold block text-plum-900 text-lg">Solo</span>
-                                <span class="text-xs font-medium text-plum-900/50">1 Player</span>
                             </button>
                             <button onclick="wizardData.players = 2; nextWizardStep();" class="p-5 bg-sand/40 hover:bg-coral-100/60 border-2 border-plum-900/10 hover:border-coral-400 rounded-2xl text-center transition transform hover:-translate-y-1 group">
                                 <div class="w-12 h-12 bg-coral-500 text-white rounded-2xl border-2 border-plum-900 mx-auto mb-3 flex items-center justify-center font-display font-bold text-lg shadow-fun-sm">2</div>
                                 <span class="font-display font-bold block text-plum-900 text-lg">Duo</span>
-                                <span class="text-xs font-medium text-plum-900/50">2 Players</span>
                             </button>
                             <button onclick="wizardData.players = 4; nextWizardStep();" class="p-5 bg-sand/40 hover:bg-amber-100/60 border-2 border-plum-900/10 hover:border-amber-400 rounded-2xl text-center transition transform hover:-translate-y-1 group">
                                 <div class="w-12 h-12 bg-amber-400 text-white rounded-2xl border-2 border-plum-900 mx-auto mb-3 flex items-center justify-center font-display font-bold text-lg shadow-fun-sm">3-4</div>
-                                <span class="font-display font-bold block text-plum-900 text-lg">Standard Group</span>
-                                <span class="text-xs font-medium text-plum-900/50">3 to 4 Players</span>
+                                <span class="font-display font-bold block text-plum-900 text-lg">Standard</span>
                             </button>
                             <button onclick="wizardData.players = 5; nextWizardStep();" class="p-5 bg-sand/40 hover:bg-plum-100/60 border-2 border-plum-900/10 hover:border-plum-500 rounded-2xl text-center transition transform hover:-translate-y-1 group">
                                 <div class="w-12 h-12 bg-plum-500 text-white rounded-2xl border-2 border-plum-900 mx-auto mb-3 flex items-center justify-center font-display font-bold text-lg shadow-fun-sm">5+</div>
-                                <span class="font-display font-bold block text-plum-900 text-lg">Party Group</span>
-                                <span class="text-xs font-medium text-plum-900/50">5+ Players</span>
+                                <span class="font-display font-bold block text-plum-900 text-lg">Party</span>
                             </button>
                         </div>
                     </div>
 
-                    <!-- Step 2: Time Available -->
+                    <!-- Step 2: Time -->
                     <div class="wizard-step hidden space-y-6" data-step="2">
                         <div class="text-center space-y-2">
                             <h2 class="text-3xl font-display font-bold text-plum-900">How long do you want to play?</h2>
@@ -251,22 +234,22 @@
                             <button onclick="wizardData.time = 45; nextWizardStep();" class="p-6 bg-sand/40 hover:bg-teal-100/60 border-2 border-plum-900/10 hover:border-teal-500 rounded-2xl text-center transition transform hover:-translate-y-1 group">
                                 <i data-lucide="zap" class="w-10 h-10 mx-auto text-teal-600 mb-2"></i>
                                 <span class="font-display font-bold block text-plum-900 text-xl">Quick Filler</span>
-                                <span class="text-xs font-medium text-plum-900/50">Under 45 Minutes</span>
+                                <span class="text-xs font-medium text-plum-900/50">Under 45 Mins</span>
                             </button>
                             <button onclick="wizardData.time = 90; nextWizardStep();" class="p-6 bg-sand/40 hover:bg-coral-100/60 border-2 border-plum-900/10 hover:border-coral-400 rounded-2xl text-center transition transform hover:-translate-y-1 group">
                                 <i data-lucide="clock" class="w-10 h-10 mx-auto text-coral-500 mb-2"></i>
                                 <span class="font-display font-bold block text-plum-900 text-xl">Medium Session</span>
-                                <span class="text-xs font-medium text-plum-900/50">45 to 90 Minutes</span>
+                                <span class="text-xs font-medium text-plum-900/50">45 - 90 Mins</span>
                             </button>
                             <button onclick="wizardData.time = 180; nextWizardStep();" class="p-6 bg-sand/40 hover:bg-plum-100/60 border-2 border-plum-900/10 hover:border-plum-500 rounded-2xl text-center transition transform hover:-translate-y-1 group">
                                 <i data-lucide="hourglass" class="w-10 h-10 mx-auto text-plum-500 mb-2"></i>
                                 <span class="font-display font-bold block text-plum-900 text-xl">Epic Night</span>
-                                <span class="text-xs font-medium text-plum-900/50">90+ Minutes</span>
+                                <span class="text-xs font-medium text-plum-900/50">90+ Mins</span>
                             </button>
                         </div>
                     </div>
 
-                    <!-- Step 3: Game Complexity -->
+                    <!-- Step 3: Complexity -->
                     <div class="wizard-step hidden space-y-6" data-step="3">
                         <div class="text-center space-y-2">
                             <h2 class="text-3xl font-display font-bold text-plum-900">What level of brainpower?</h2>
@@ -276,22 +259,19 @@
                             <button onclick="wizardData.weight = 'light'; nextWizardStep();" class="p-6 bg-sand/40 hover:bg-teal-100/60 border-2 border-plum-900/10 hover:border-teal-500 rounded-2xl text-center transition transform hover:-translate-y-1 group">
                                 <i data-lucide="smile" class="w-10 h-10 mx-auto text-teal-600 mb-2"></i>
                                 <span class="font-display font-bold block text-plum-900 text-xl">Light & Easy</span>
-                                <span class="text-xs font-medium text-plum-900/50">Casual rules & chill vibe</span>
                             </button>
                             <button onclick="wizardData.weight = 'medium'; nextWizardStep();" class="p-6 bg-sand/40 hover:bg-amber-100/60 border-2 border-plum-900/10 hover:border-amber-400 rounded-2xl text-center transition transform hover:-translate-y-1 group">
                                 <i data-lucide="brain" class="w-10 h-10 mx-auto text-amber-500 mb-2"></i>
                                 <span class="font-display font-bold block text-plum-900 text-xl">Medium Strategy</span>
-                                <span class="text-xs font-medium text-plum-900/50">Fun choices & light planning</span>
                             </button>
                             <button onclick="wizardData.weight = 'heavy'; nextWizardStep();" class="p-6 bg-sand/40 hover:bg-coral-100/60 border-2 border-plum-900/10 hover:border-coral-400 rounded-2xl text-center transition transform hover:-translate-y-1 group">
                                 <i data-lucide="flame" class="w-10 h-10 mx-auto text-coral-500 mb-2"></i>
                                 <span class="font-display font-bold block text-plum-900 text-xl">Heavy Thinker</span>
-                                <span class="text-xs font-medium text-plum-900/50">Deep tactics & heavy rulebook</span>
                             </button>
                         </div>
                     </div>
 
-                    <!-- Step 4: Game Style / Genre -->
+                    <!-- Step 4: Genre -->
                     <div class="wizard-step hidden space-y-6" data-step="4">
                         <div class="text-center space-y-2">
                             <h2 class="text-3xl font-display font-bold text-plum-900">What's the game vibe?</h2>
@@ -301,28 +281,23 @@
                             <button onclick="wizardData.genre = 'Cooperative'; finishWizard();" class="p-5 bg-sand/40 hover:bg-teal-100/60 border-2 border-plum-900/10 hover:border-teal-500 rounded-2xl text-center transition transform hover:-translate-y-1">
                                 <i data-lucide="hand-metal" class="w-8 h-8 mx-auto text-teal-600 mb-2"></i>
                                 <span class="font-display font-bold block text-plum-900 text-base">Cooperative</span>
-                                <span class="text-xs font-medium text-plum-900/50">Win together</span>
                             </button>
                             <button onclick="wizardData.genre = 'Strategy'; finishWizard();" class="p-5 bg-sand/40 hover:bg-coral-100/60 border-2 border-plum-900/10 hover:border-coral-400 rounded-2xl text-center transition transform hover:-translate-y-1">
                                 <i data-lucide="swords" class="w-8 h-8 mx-auto text-coral-500 mb-2"></i>
                                 <span class="font-display font-bold block text-plum-900 text-base">Strategy</span>
-                                <span class="text-xs font-medium text-plum-900/50">Outsmart rivals</span>
                             </button>
                             <button onclick="wizardData.genre = 'Party'; finishWizard();" class="p-5 bg-sand/40 hover:bg-amber-100/60 border-2 border-plum-900/10 hover:border-amber-400 rounded-2xl text-center transition transform hover:-translate-y-1">
                                 <i data-lucide="party-popper" class="w-8 h-8 mx-auto text-amber-500 mb-2"></i>
                                 <span class="font-display font-bold block text-plum-900 text-base">Party Fun</span>
-                                <span class="text-xs font-medium text-plum-900/50">Laughs & chaos</span>
                             </button>
                             <button onclick="wizardData.genre = 'Any'; finishWizard();" class="p-5 bg-sand/40 hover:bg-plum-100/60 border-2 border-plum-900/10 hover:border-plum-500 rounded-2xl text-center transition transform hover:-translate-y-1">
                                 <i data-lucide="sparkles" class="w-8 h-8 mx-auto text-plum-500 mb-2"></i>
                                 <span class="font-display font-bold block text-plum-900 text-base">Surprise Us!</span>
-                                <span class="text-xs font-medium text-plum-900/50">Anything goes</span>
                             </button>
                         </div>
                     </div>
                 </div>
 
-                <!-- Footer Navigation -->
                 <div class="flex justify-between items-center mt-10 pt-4 border-t-2 border-plum-900/10">
                     <button id="wizard-back-btn" onclick="prevWizardStep()" class="text-plum-900/60 hover:text-plum-900 font-display font-bold text-sm flex items-center space-x-1 invisible">
                         <i data-lucide="arrow-left" class="w-4 h-4"></i>
@@ -332,18 +307,16 @@
                 </div>
             </div>
 
-            <!-- Wizard Results Display -->
+            <!-- Wizard Results -->
             <div id="wizard-results" class="hidden space-y-4">
                 <div class="flex items-center justify-between">
                     <h3 class="text-2xl font-display font-bold text-plum-900 flex items-center space-x-2">
                         <i data-lucide="trophy" class="w-7 h-7 text-amber-500"></i>
-                        <span>Your Top Match Recommendations!</span>
+                        <span>Top Match Recommendations!</span>
                     </h3>
                     <button onclick="resetWizard()" class="text-xs font-display font-bold bg-coral-100 text-coral-600 border border-coral-400 px-3 py-1.5 rounded-xl transition hover:bg-coral-500 hover:text-white">Run Again</button>
                 </div>
-                <div id="wizard-results-container" class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                    <!-- Dynamic Matches -->
-                </div>
+                <div id="wizard-results-container" class="grid grid-cols-1 md:grid-cols-2 gap-5"></div>
             </div>
         </section>
 
@@ -356,7 +329,6 @@
                     <p class="text-sm font-medium text-plum-900/60">Let chance pick a game from your collection.</p>
                 </div>
 
-                <!-- Dice Spinner Display Box -->
                 <div id="picker-display-box" class="bg-sand/40 border-2 border-dashed border-plum-900/20 rounded-3xl p-8 min-h-[180px] flex flex-col items-center justify-center transition-all duration-300">
                     <div id="picker-placeholder" class="space-y-3">
                         <div class="w-16 h-16 bg-amber-400 border-2 border-plum-900 rounded-2xl flex items-center justify-center mx-auto shadow-fun-sm transform rotate-6">
@@ -377,10 +349,8 @@
                 </button>
             </div>
         </section>
-
     </main>
 
-    <!-- Footer -->
     <footer class="mt-auto py-8 border-t-2 border-plum-900/10 bg-white/50 text-center text-xs font-semibold text-plum-900/50">
         <p>Game Night Companion &bull; Built for Board Game Enthusiasts & Families</p>
     </footer>
@@ -456,28 +426,60 @@
         <span id="toast-msg" class="text-sm font-display font-bold">Notification message</span>
     </div>
 
-    <!-- APPLICATION JAVASCRIPT -->
+    <!-- APPLICATION JAVASCRIPT WITH FIRESTORE -->
     <script>
-        // Preset Collection Data with Board-Game Illustrated Badges & Photos
-        const DEFAULT_GAMES = [
-            { id: 1, title: 'Wingspan', minPlayers: 1, maxPlayers: 5, playTime: 70, weight: 2.45, genre: 'Strategy', image: 'https://images.unsplash.com/photo-1610890716171-6b1bb98ffd09?w=600&auto=format&fit=crop&q=80' },
-            { id: 2, title: 'Catan', minPlayers: 3, maxPlayers: 4, playTime: 90, weight: 2.32, genre: 'Strategy', image: 'https://images.unsplash.com/photo-1563089145-599997674d42?w=600&auto=format&fit=crop&q=80' },
-            { id: 3, title: 'Codenames', minPlayers: 2, maxPlayers: 8, playTime: 15, weight: 1.26, genre: 'Party', image: 'https://images.unsplash.com/photo-1632501641765-e568de284004?w=600&auto=format&fit=crop&q=80' },
-            { id: 4, title: 'Pandemic', minPlayers: 2, maxPlayers: 4, playTime: 45, weight: 2.41, genre: 'Cooperative', image: 'https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?w=600&auto=format&fit=crop&q=80' },
-            { id: 5, title: 'Azul', minPlayers: 2, maxPlayers: 4, playTime: 45, weight: 1.76, genre: 'Family', image: 'https://images.unsplash.com/photo-1588699661386-749e728416d7?w=600&auto=format&fit=crop&q=80' },
-            { id: 6, title: 'Gloomhaven', minPlayers: 1, maxPlayers: 4, playTime: 120, weight: 3.8, genre: 'Thematic', image: 'https://images.unsplash.com/photo-1511193311914-0346f16efe90?w=600&auto=format&fit=crop&q=80' },
-            { id: 7, title: 'Ticket to Ride', minPlayers: 2, maxPlayers: 5, playTime: 60, weight: 1.84, genre: 'Family', image: 'https://images.unsplash.com/photo-1569683795645-b62e50fbf103?w=600&auto=format&fit=crop&q=80' }
-        ];
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDg6hx96WiJQsv_vSOPh_422nJEXfPEUlM",
+            authDomain: "board-game-picker-baa84.firebaseapp.com",
+            projectId: "board-game-picker-baa84",
+            storageBucket: "board-game-picker-baa84.firebasestorage.app",
+            messagingSenderId: "470324910225",
+            appId: "1:470324910225:web:717a98bb9d56af419a0730"
+        };
 
-        let games = JSON.parse(localStorage.getItem('tabletop_games')) || DEFAULT_GAMES;
+        // Initialize Firebase & Firestore
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        let games = [];
         let wizardData = { players: null, time: null, weight: null, genre: null };
         let currentWizardStepNumber = 1;
 
-        // Initialization
-        window.addEventListener('DOMContentLoaded', () => {
+        // Default seed data if database is empty
+        const DEFAULT_GAMES = [
+            { title: 'Wingspan', minPlayers: 1, maxPlayers: 5, playTime: 70, weight: 2.45, genre: 'Strategy', image: 'https://images.unsplash.com/photo-1610890716171-6b1bb98ffd09?w=600&auto=format&fit=crop&q=80' },
+            { title: 'Catan', minPlayers: 3, maxPlayers: 4, playTime: 90, weight: 2.32, genre: 'Strategy', image: 'https://images.unsplash.com/photo-1563089145-599997674d42?w=600&auto=format&fit=crop&q=80' },
+            { title: 'Codenames', minPlayers: 2, maxPlayers: 8, playTime: 15, weight: 1.26, genre: 'Party', image: 'https://images.unsplash.com/photo-1632501641765-e568de284004?w=600&auto=format&fit=crop&q=80' },
+            { title: 'Pandemic', minPlayers: 2, maxPlayers: 4, playTime: 45, weight: 2.41, genre: 'Cooperative', image: 'https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?w=600&auto=format&fit=crop&q=80' },
+            { title: 'Azul', minPlayers: 2, maxPlayers: 4, playTime: 45, weight: 1.76, genre: 'Family', image: 'https://images.unsplash.com/photo-1588699661386-749e728416d7?w=600&auto=format&fit=crop&q=80' },
+            { title: 'Gloomhaven', minPlayers: 1, maxPlayers: 4, playTime: 120, weight: 3.8, genre: 'Thematic', image: 'https://images.unsplash.com/photo-1511193311914-0346f16efe90?w=600&auto=format&fit=crop&q=80' },
+            { title: 'Ticket to Ride', minPlayers: 2, maxPlayers: 5, playTime: 60, weight: 1.84, genre: 'Family', image: 'https://images.unsplash.com/photo-1569683795645-b62e50fbf103?w=600&auto=format&fit=crop&q=80' }
+        ];
+
+        // Load Games from Firestore on Startup
+        window.addEventListener('DOMContentLoaded', async () => {
             lucide.createIcons();
-            renderGames(games);
+            await fetchGamesFromFirestore();
         });
+
+        async function fetchGamesFromFirestore() {
+            try {
+                const snapshot = await db.collection('games').orderBy('title').get();
+                if (snapshot.empty) {
+                    // Seed default games if collection is empty
+                    for (const game of DEFAULT_GAMES) {
+                        await db.collection('games').add(game);
+                    }
+                    return fetchGamesFromFirestore();
+                }
+                games = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                renderGames(games);
+            } catch (error) {
+                showToast('Error loading games from cloud', true);
+                console.error(error);
+            }
+        }
 
         // Tab Switching
         function switchTab(tabName) {
@@ -493,10 +495,6 @@
             activeBtn.classList.remove('text-plum-900/70', 'hover:text-plum-900', 'hover:bg-white/60');
             activeBtn.classList.add('bg-plum-800', 'text-white', 'shadow-fun-sm');
             lucide.createIcons();
-        }
-
-        function persistGames() {
-            localStorage.setItem('tabletop_games', JSON.stringify(games));
         }
 
         // Render Cards
@@ -540,8 +538,8 @@
                                 <span class="text-xs font-display font-bold px-2.5 py-0.5 rounded-lg border border-plum-900/20 ${game.weight > 3.5 ? 'bg-coral-100 text-coral-600' : game.weight > 2.2 ? 'bg-amber-100 text-amber-600' : 'bg-teal-100 text-teal-600'}">${game.weight} / 5</span>
                             </div>
                             <div class="flex items-center space-x-1">
-                                <button onclick="editGame(${game.id})" title="Edit Game" class="p-1.5 text-plum-900/50 hover:text-plum-900 hover:bg-sand rounded-xl transition"><i data-lucide="pencil" class="w-4 h-4"></i></button>
-                                <button onclick="deleteGame(${game.id})" title="Delete Game" class="p-1.5 text-plum-900/50 hover:text-coral-500 hover:bg-coral-100 rounded-xl transition"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
+                                <button onclick="editGame('${game.id}')" title="Edit Game" class="p-1.5 text-plum-900/50 hover:text-plum-900 hover:bg-sand rounded-xl transition"><i data-lucide="pencil" class="w-4 h-4"></i></button>
+                                <button onclick="deleteGame('${game.id}')" title="Delete Game" class="p-1.5 text-plum-900/50 hover:text-coral-500 hover:bg-coral-100 rounded-xl transition"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
                             </div>
                         </div>
                     </div>
@@ -612,7 +610,7 @@
             document.getElementById('game-modal').classList.remove('hidden');
         }
 
-        function saveGame(e) {
+        async function saveGame(e) {
             e.preventDefault();
             const idInput = document.getElementById('game-id').value;
             const title = document.getElementById('form-title').value;
@@ -628,29 +626,37 @@
                 return;
             }
 
-            if (idInput) {
-                const index = games.findIndex(g => g.id == idInput);
-                if (index !== -1) {
-                    games[index] = { id: parseInt(idInput), title, minPlayers, maxPlayers, playTime, weight, genre, image };
+            try {
+                if (idInput) {
+                    await db.collection('games').doc(idInput).update({
+                        title, minPlayers, maxPlayers, playTime, weight, genre, image
+                    });
                     showToast('Game updated successfully!');
+                } else {
+                    await db.collection('games').add({
+                        title, minPlayers, maxPlayers, playTime, weight, genre, image
+                    });
+                    showToast('New game added to collection!');
                 }
-            } else {
-                const newGame = { id: Date.now(), title, minPlayers, maxPlayers, playTime, weight, genre, image };
-                games.push(newGame);
-                showToast('New game added to collection!');
-            }
 
-            persistGames();
-            filterGames();
-            closeModal();
+                closeModal();
+                await fetchGamesFromFirestore();
+            } catch (error) {
+                showToast('Failed to save game', true);
+                console.error(error);
+            }
         }
 
-        function deleteGame(id) {
+        async function deleteGame(id) {
             if (confirm('Are you sure you want to remove this board game?')) {
-                games = games.filter(g => g.id !== id);
-                persistGames();
-                filterGames();
-                showToast('Game removed from collection.');
+                try {
+                    await db.collection('games').doc(id).delete();
+                    showToast('Game removed from collection.');
+                    await fetchGamesFromFirestore();
+                } catch (error) {
+                    showToast('Failed to delete game', true);
+                    console.error(error);
+                }
             }
         }
 
