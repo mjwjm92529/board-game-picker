@@ -155,7 +155,9 @@
                             <option value="2">2 Players</option>
                             <option value="3">3 Players</option>
                             <option value="4">4 Players</option>
-                            <option value="5">5+ Players</option>
+                            <option value="5">5 Players</option>
+                            <option value="6">6 Players</option>
+                            <option value="7">7+ Players</option>
                         </select>
 
                         <select id="sort-by" onchange="filterGames()" class="bg-sand/50 border-2 border-plum-900/10 text-plum-900 text-sm font-semibold rounded-2xl px-3.5 py-2.5 focus:outline-none focus:border-coral-500">
@@ -198,28 +200,40 @@
                 </div>
 
                 <div id="wizard-step-content">
-                    <!-- Step 1: Players -->
+                    <!-- Step 1: Players (Expanded options) -->
                     <div class="wizard-step space-y-6" data-step="1">
                         <div class="text-center space-y-2">
                             <h2 class="text-3xl font-display font-bold text-plum-900">How many people are playing tonight?</h2>
                             <p class="text-sm font-medium text-plum-900/60">Count everyone seated around the tabletop.</p>
                         </div>
-                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-2">
-                            <button onclick="wizardData.players = 1; nextWizardStep();" class="p-5 bg-sand/40 hover:bg-teal-100/60 border-2 border-plum-900/10 hover:border-teal-500 rounded-2xl text-center transition transform hover:-translate-y-1 group">
-                                <div class="w-12 h-12 bg-teal-500 text-white rounded-2xl border-2 border-plum-900 mx-auto mb-3 flex items-center justify-center font-display font-bold text-lg shadow-fun-sm">1</div>
-                                <span class="font-display font-bold block text-plum-900 text-lg">Solo</span>
+                        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 pt-2">
+                            <button onclick="wizardData.players = 1; nextWizardStep();" class="p-4 bg-sand/40 hover:bg-teal-100/60 border-2 border-plum-900/10 hover:border-teal-500 rounded-2xl text-center transition transform hover:-translate-y-1">
+                                <div class="w-10 h-10 bg-teal-500 text-white rounded-xl border-2 border-plum-900 mx-auto mb-2 flex items-center justify-center font-display font-bold text-base shadow-fun-sm">1</div>
+                                <span class="font-display font-bold block text-plum-900 text-sm">One (Solo)</span>
                             </button>
-                            <button onclick="wizardData.players = 2; nextWizardStep();" class="p-5 bg-sand/40 hover:bg-coral-100/60 border-2 border-plum-900/10 hover:border-coral-400 rounded-2xl text-center transition transform hover:-translate-y-1 group">
-                                <div class="w-12 h-12 bg-coral-500 text-white rounded-2xl border-2 border-plum-900 mx-auto mb-3 flex items-center justify-center font-display font-bold text-lg shadow-fun-sm">2</div>
-                                <span class="font-display font-bold block text-plum-900 text-lg">Duo</span>
+                            <button onclick="wizardData.players = 2; nextWizardStep();" class="p-4 bg-sand/40 hover:bg-coral-100/60 border-2 border-plum-900/10 hover:border-coral-400 rounded-2xl text-center transition transform hover:-translate-y-1">
+                                <div class="w-10 h-10 bg-coral-500 text-white rounded-xl border-2 border-plum-900 mx-auto mb-2 flex items-center justify-center font-display font-bold text-base shadow-fun-sm">2</div>
+                                <span class="font-display font-bold block text-plum-900 text-sm">Two (Duo)</span>
                             </button>
-                            <button onclick="wizardData.players = 4; nextWizardStep();" class="p-5 bg-sand/40 hover:bg-amber-100/60 border-2 border-plum-900/10 hover:border-amber-400 rounded-2xl text-center transition transform hover:-translate-y-1 group">
-                                <div class="w-12 h-12 bg-amber-400 text-white rounded-2xl border-2 border-plum-900 mx-auto mb-3 flex items-center justify-center font-display font-bold text-lg shadow-fun-sm">3-4</div>
-                                <span class="font-display font-bold block text-plum-900 text-lg">Standard</span>
+                            <button onclick="wizardData.players = 3; nextWizardStep();" class="p-4 bg-sand/40 hover:bg-amber-100/60 border-2 border-plum-900/10 hover:border-amber-400 rounded-2xl text-center transition transform hover:-translate-y-1">
+                                <div class="w-10 h-10 bg-amber-400 text-white rounded-xl border-2 border-plum-900 mx-auto mb-2 flex items-center justify-center font-display font-bold text-base shadow-fun-sm">3</div>
+                                <span class="font-display font-bold block text-plum-900 text-sm">Three</span>
                             </button>
-                            <button onclick="wizardData.players = 5; nextWizardStep();" class="p-5 bg-sand/40 hover:bg-plum-100/60 border-2 border-plum-900/10 hover:border-plum-500 rounded-2xl text-center transition transform hover:-translate-y-1 group">
-                                <div class="w-12 h-12 bg-plum-500 text-white rounded-2xl border-2 border-plum-900 mx-auto mb-3 flex items-center justify-center font-display font-bold text-lg shadow-fun-sm">5+</div>
-                                <span class="font-display font-bold block text-plum-900 text-lg">Party</span>
+                            <button onclick="wizardData.players = 4; nextWizardStep();" class="p-4 bg-sand/40 hover:bg-amber-100/60 border-2 border-plum-900/10 hover:border-amber-400 rounded-2xl text-center transition transform hover:-translate-y-1">
+                                <div class="w-10 h-10 bg-amber-500 text-white rounded-xl border-2 border-plum-900 mx-auto mb-2 flex items-center justify-center font-display font-bold text-base shadow-fun-sm">4</div>
+                                <span class="font-display font-bold block text-plum-900 text-sm">Four</span>
+                            </button>
+                            <button onclick="wizardData.players = 5; nextWizardStep();" class="p-4 bg-sand/40 hover:bg-teal-100/60 border-2 border-plum-900/10 hover:border-teal-500 rounded-2xl text-center transition transform hover:-translate-y-1">
+                                <div class="w-10 h-10 bg-teal-600 text-white rounded-xl border-2 border-plum-900 mx-auto mb-2 flex items-center justify-center font-display font-bold text-base shadow-fun-sm">5</div>
+                                <span class="font-display font-bold block text-plum-900 text-sm">Five</span>
+                            </button>
+                            <button onclick="wizardData.players = 6; nextWizardStep();" class="p-4 bg-sand/40 hover:bg-plum-100/60 border-2 border-plum-900/10 hover:border-plum-500 rounded-2xl text-center transition transform hover:-translate-y-1">
+                                <div class="w-10 h-10 bg-plum-500 text-white rounded-xl border-2 border-plum-900 mx-auto mb-2 flex items-center justify-center font-display font-bold text-base shadow-fun-sm">6</div>
+                                <span class="font-display font-bold block text-plum-900 text-sm">Six</span>
+                            </button>
+                            <button onclick="wizardData.players = 7; nextWizardStep();" class="p-4 bg-sand/40 hover:bg-coral-100/60 border-2 border-plum-900/10 hover:border-coral-500 rounded-2xl text-center transition transform hover:-translate-y-1 col-span-2 sm:col-span-1">
+                                <div class="w-10 h-10 bg-coral-600 text-white rounded-xl border-2 border-plum-900 mx-auto mb-2 flex items-center justify-center font-display font-bold text-base shadow-fun-sm">7+</div>
+                                <span class="font-display font-bold block text-plum-900 text-sm">Seven+ (Party)</span>
                             </button>
                         </div>
                     </div>
@@ -355,7 +369,7 @@
         <p>Game Night Companion &bull; Built for Board Game Enthusiasts & Families</p>
     </footer>
 
-    <!-- ADD/EDIT GAME MODAL -->
+    <!-- ADD/EDIT GAME MODAL (Includes Ideal Players input) -->
     <div id="game-modal" class="fixed inset-0 z-50 bg-plum-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4 overflow-y-auto">
         <div class="bg-white border-2 border-plum-900 rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-fun-lg relative space-y-6">
             <div class="flex items-center justify-between">
@@ -373,14 +387,18 @@
                     <input type="text" id="form-title" required placeholder="e.g., Ticket to Ride, Catan..." class="w-full bg-sand/40 border-2 border-plum-900/15 rounded-2xl px-4 py-2.5 text-sm font-semibold focus:outline-none focus:border-coral-500 text-plum-900">
                 </div>
 
-                <div class="grid grid-cols-2 gap-4">
+                <div class="grid grid-cols-3 gap-3">
                     <div>
                         <label class="block text-xs font-display font-bold text-plum-900 uppercase tracking-wider mb-1">Min Players *</label>
-                        <input type="number" id="form-min-players" min="1" max="10" required value="1" class="w-full bg-sand/40 border-2 border-plum-900/15 rounded-2xl px-4 py-2.5 text-sm font-semibold focus:outline-none focus:border-coral-500 text-plum-900">
+                        <input type="number" id="form-min-players" min="1" max="10" required value="1" class="w-full bg-sand/40 border-2 border-plum-900/15 rounded-2xl px-3 py-2.5 text-sm font-semibold focus:outline-none focus:border-coral-500 text-plum-900">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-display font-bold text-plum-900 uppercase tracking-wider mb-1">Ideal Players *</label>
+                        <input type="number" id="form-ideal-players" min="1" max="20" required value="2" class="w-full bg-sand/40 border-2 border-plum-900/15 rounded-2xl px-3 py-2.5 text-sm font-semibold focus:outline-none focus:border-coral-500 text-plum-900">
                     </div>
                     <div>
                         <label class="block text-xs font-display font-bold text-plum-900 uppercase tracking-wider mb-1">Max Players *</label>
-                        <input type="number" id="form-max-players" min="1" max="20" required value="4" class="w-full bg-sand/40 border-2 border-plum-900/15 rounded-2xl px-4 py-2.5 text-sm font-semibold focus:outline-none focus:border-coral-500 text-plum-900">
+                        <input type="number" id="form-max-players" min="1" max="20" required value="4" class="w-full bg-sand/40 border-2 border-plum-900/15 rounded-2xl px-3 py-2.5 text-sm font-semibold focus:outline-none focus:border-coral-500 text-plum-900">
                     </div>
                 </div>
 
@@ -446,15 +464,15 @@
         let wizardData = { players: null, time: null, weight: null, genre: null };
         let currentWizardStepNumber = 1;
 
-        // Default seed data if database is empty
+        // Default seed data with ideal player counts
         const DEFAULT_GAMES = [
-            { title: 'Wingspan', minPlayers: 1, maxPlayers: 5, playTime: 70, weight: 2.45, genre: 'Strategy', image: 'https://images.unsplash.com/photo-1610890716171-6b1bb98ffd09?w=600&auto=format&fit=crop&q=80' },
-            { title: 'Catan', minPlayers: 3, maxPlayers: 4, playTime: 90, weight: 2.32, genre: 'Strategy', image: 'https://images.unsplash.com/photo-1563089145-599997674d42?w=600&auto=format&fit=crop&q=80' },
-            { title: 'Codenames', minPlayers: 2, maxPlayers: 8, playTime: 15, weight: 1.26, genre: 'Party', image: 'https://images.unsplash.com/photo-1632501641765-e568de284004?w=600&auto=format&fit=crop&q=80' },
-            { title: 'Pandemic', minPlayers: 2, maxPlayers: 4, playTime: 45, weight: 2.41, genre: 'Cooperative', image: 'https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?w=600&auto=format&fit=crop&q=80' },
-            { title: 'Azul', minPlayers: 2, maxPlayers: 4, playTime: 45, weight: 1.76, genre: 'Family', image: 'https://images.unsplash.com/photo-1588699661386-749e728416d7?w=600&auto=format&fit=crop&q=80' },
-            { title: 'Gloomhaven', minPlayers: 1, maxPlayers: 4, playTime: 120, weight: 3.8, genre: 'Thematic', image: 'https://images.unsplash.com/photo-1511193311914-0346f16efe90?w=600&auto=format&fit=crop&q=80' },
-            { title: 'Ticket to Ride', minPlayers: 2, maxPlayers: 5, playTime: 60, weight: 1.84, genre: 'Family', image: 'https://images.unsplash.com/photo-1569683795645-b62e50fbf103?w=600&auto=format&fit=crop&q=80' }
+            { title: 'Wingspan', minPlayers: 1, idealPlayers: 3, maxPlayers: 5, playTime: 70, weight: 2.45, genre: 'Strategy', image: 'https://images.unsplash.com/photo-1610890716171-6b1bb98ffd09?w=600&auto=format&fit=crop&q=80' },
+            { title: 'Catan', minPlayers: 3, idealPlayers: 3, maxPlayers: 4, playTime: 90, weight: 2.32, genre: 'Strategy', image: 'https://images.unsplash.com/photo-1563089145-599997674d42?w=600&auto=format&fit=crop&q=80' },
+            { title: 'Codenames', minPlayers: 2, idealPlayers: 6, maxPlayers: 8, playTime: 15, weight: 1.26, genre: 'Party', image: 'https://images.unsplash.com/photo-1632501641765-e568de284004?w=600&auto=format&fit=crop&q=80' },
+            { title: 'Pandemic', minPlayers: 2, idealPlayers: 4, maxPlayers: 4, playTime: 45, weight: 2.41, genre: 'Cooperative', image: 'https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?w=600&auto=format&fit=crop&q=80' },
+            { title: 'Azul', minPlayers: 2, idealPlayers: 2, maxPlayers: 4, playTime: 45, weight: 1.76, genre: 'Family', image: 'https://images.unsplash.com/photo-1588699661386-749e728416d7?w=600&auto=format&fit=crop&q=80' },
+            { title: 'Gloomhaven', minPlayers: 1, idealPlayers: 2, maxPlayers: 4, playTime: 120, weight: 3.8, genre: 'Thematic', image: 'https://images.unsplash.com/photo-1511193311914-0346f16efe90?w=600&auto=format&fit=crop&q=80' },
+            { title: 'Ticket to Ride', minPlayers: 2, idealPlayers: 4, maxPlayers: 5, playTime: 60, weight: 1.84, genre: 'Family', image: 'https://images.unsplash.com/photo-1569683795645-b62e50fbf103?w=600&auto=format&fit=crop&q=80' }
         ];
 
         // Load Games from Firestore on Startup
@@ -467,7 +485,6 @@
             try {
                 const snapshot = await db.collection('games').orderBy('title').get();
                 if (snapshot.empty) {
-                    // Seed default games if collection is empty
                     for (const game of DEFAULT_GAMES) {
                         await db.collection('games').add(game);
                     }
@@ -497,7 +514,7 @@
             lucide.createIcons();
         }
 
-        // Render Cards
+        // Render Cards (Showing Ideal Players count)
         function renderGames(data) {
             const grid = document.getElementById('game-grid');
             const emptyState = document.getElementById('empty-state');
@@ -515,6 +532,7 @@
                 
                 const fallbackImg = `https://placehold.co/600x400/FF5C52/ffffff?text=${encodeURIComponent(game.title)}`;
                 const imgSrc = game.image && game.image.trim() !== '' ? game.image : fallbackImg;
+                const idealText = game.idealPlayers ? ` (Ideal: ${game.idealPlayers})` : '';
 
                 card.innerHTML = `
                     <div class="relative h-44 overflow-hidden bg-sand/30 border-b-2 border-plum-900/10">
@@ -527,7 +545,7 @@
                         <div class="space-y-2">
                             <h3 class="font-display font-bold text-xl text-plum-900 leading-tight line-clamp-1">${game.title}</h3>
                             <div class="flex items-center space-x-3 text-xs font-semibold text-plum-900/60">
-                                <span class="flex items-center space-x-1.5"><i data-lucide="users" class="w-4 h-4 text-coral-500"></i><span>${game.minPlayers === game.maxPlayers ? game.minPlayers : `${game.minPlayers}-${game.maxPlayers}`} players</span></span>
+                                <span class="flex items-center space-x-1.5"><i data-lucide="users" class="w-4 h-4 text-coral-500"></i><span>${game.minPlayers}-${game.maxPlayers} players${idealText}</span></span>
                                 <span class="flex items-center space-x-1.5"><i data-lucide="clock" class="w-4 h-4 text-teal-600"></i><span>${game.playTime}m</span></span>
                             </div>
                         </div>
@@ -560,7 +578,7 @@
                 const matchQuery = g.title.toLowerCase().includes(query);
                 const matchGenre = genre === '' || g.genre === genre;
                 const pNum = players ? parseInt(players) : null;
-                const matchPlayers = !pNum || (pNum >= g.minPlayers && pNum <= g.maxPlayers) || (pNum >= 5 && g.maxPlayers >= 5);
+                const matchPlayers = !pNum || (pNum === 7 ? g.maxPlayers >= 7 : (pNum >= g.minPlayers && pNum <= g.maxPlayers));
                 return matchQuery && matchGenre && matchPlayers;
             });
 
@@ -601,6 +619,7 @@
             document.getElementById('game-id').value = game.id;
             document.getElementById('form-title').value = game.title;
             document.getElementById('form-min-players').value = game.minPlayers;
+            document.getElementById('form-ideal-players').value = game.idealPlayers || game.minPlayers;
             document.getElementById('form-max-players').value = game.maxPlayers;
             document.getElementById('form-time').value = game.playTime;
             document.getElementById('form-weight').value = game.weight;
@@ -615,6 +634,7 @@
             const idInput = document.getElementById('game-id').value;
             const title = document.getElementById('form-title').value;
             const minPlayers = parseInt(document.getElementById('form-min-players').value);
+            const idealPlayers = parseInt(document.getElementById('form-ideal-players').value);
             const maxPlayers = parseInt(document.getElementById('form-max-players').value);
             const playTime = parseInt(document.getElementById('form-time').value);
             const weight = parseFloat(document.getElementById('form-weight').value);
@@ -625,16 +645,20 @@
                 showToast('Min players cannot exceed max players!', true);
                 return;
             }
+            if (idealPlayers < minPlayers || idealPlayers > maxPlayers) {
+                showToast('Ideal players should be between min and max players!', true);
+                return;
+            }
 
             try {
                 if (idInput) {
                     await db.collection('games').doc(idInput).update({
-                        title, minPlayers, maxPlayers, playTime, weight, genre, image
+                        title, minPlayers, idealPlayers, maxPlayers, playTime, weight, genre, image
                     });
                     showToast('Game updated successfully!');
                 } else {
                     await db.collection('games').add({
-                        title, minPlayers, maxPlayers, playTime, weight, genre, image
+                        title, minPlayers, idealPlayers, maxPlayers, playTime, weight, genre, image
                     });
                     showToast('New game added to collection!');
                 }
@@ -706,6 +730,7 @@
             document.getElementById('wizard-results').classList.add('hidden');
         }
 
+        // Wizard scoring factoring in Ideal Players
         function finishWizard() {
             document.getElementById('wizard-results').classList.remove('hidden');
             const container = document.getElementById('wizard-results-container');
@@ -713,8 +738,25 @@
 
             let matches = games.map(game => {
                 let score = 0;
-                if (wizardData.players >= game.minPlayers && wizardData.players <= game.maxPlayers) score += 40;
-                else score -= 20;
+                const pCount = wizardData.players; // 1 to 7
+
+                // Check if supported by player range
+                const supportsPlayers = pCount === 7 ? game.maxPlayers >= 7 : (pCount >= game.minPlayers && pCount <= game.maxPlayers);
+
+                if (supportsPlayers) {
+                    score += 30; // base points for supporting player count
+
+                    // Bonus points if it matches the Ideal Number of Players
+                    if (game.idealPlayers) {
+                        if (pCount === 7 && game.idealPlayers >= 7) {
+                            score += 40;
+                        } else if (game.idealPlayers === pCount) {
+                            score += 40; // High bonus for hitting the ideal count!
+                        }
+                    }
+                } else {
+                    score -= 40; // Penalty if outside supported player range
+                }
 
                 if (wizardData.time && game.playTime <= wizardData.time + 15) score += 30;
 
@@ -751,7 +793,7 @@
                         </div>
                     </div>
                     <div class="flex items-center justify-between pt-3 border-t-2 border-plum-900/10 text-xs font-bold text-plum-900/60">
-                        <span>Players: ${g.minPlayers}-${g.maxPlayers}</span>
+                        <span>Players: ${g.minPlayers}-${g.maxPlayers} ${g.idealPlayers ? `(Ideal: ${g.idealPlayers})` : ''}</span>
                         <button onclick="switchTab('collection')" class="text-coral-500 hover:text-coral-600 font-display font-bold flex items-center space-x-1"><span>View in collection</span><i data-lucide="chevron-right" class="w-4 h-4"></i></button>
                     </div>
                 `;
