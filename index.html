@@ -149,7 +149,8 @@
                             <option value="Strategy">Strategy</option>
                             <option value="Heavy">Heavy</option>
                             <option value="Silly">Silly</option>
-                            <option value="Luck">Luck</option>
+                            <option value="Mid-Weight">Mid-Weight</option>
+                            <option value="Teams">Teams</option>
                         </select>
 
                         <select id="filter-players" onchange="filterGames()" class="bg-sand/50 border-2 border-plum-900/10 text-plum-900 text-sm font-semibold rounded-2xl px-3.5 py-2.5 focus:outline-none focus:border-coral-500">
@@ -266,7 +267,7 @@
                         </div>
                     </div>
 
-                    <!-- Step 3: Complexity -->
+                    <!-- Step 3: Complexity (Brainpower) -->
                     <div class="wizard-step hidden space-y-6" data-step="3">
                         <div class="text-center space-y-2">
                             <h2 class="text-3xl font-display font-bold text-plum-900">What level of brainpower?</h2>
@@ -276,42 +277,43 @@
                             <button onclick="wizardData.weight = 'light'; nextWizardStep();" class="p-6 bg-sand/40 hover:bg-teal-100/60 border-2 border-plum-900/10 hover:border-teal-500 rounded-2xl text-center transition transform hover:-translate-y-1 group">
                                 <i data-lucide="smile" class="w-10 h-10 mx-auto text-teal-600 mb-2"></i>
                                 <span class="font-display font-bold block text-plum-900 text-xl">Light & Easy</span>
+                                <span class="text-xs font-medium text-plum-900/50">Casual vibe</span>
                             </button>
                             <button onclick="wizardData.weight = 'medium'; nextWizardStep();" class="p-6 bg-sand/40 hover:bg-amber-100/60 border-2 border-plum-900/10 hover:border-amber-400 rounded-2xl text-center transition transform hover:-translate-y-1 group">
                                 <i data-lucide="brain" class="w-10 h-10 mx-auto text-amber-500 mb-2"></i>
                                 <span class="font-display font-bold block text-plum-900 text-xl">Medium Strategy</span>
+                                <span class="text-xs font-medium text-plum-900/50">Mid-Weight</span>
                             </button>
                             <button onclick="wizardData.weight = 'heavy'; nextWizardStep();" class="p-6 bg-sand/40 hover:bg-coral-100/60 border-2 border-plum-900/10 hover:border-coral-400 rounded-2xl text-center transition transform hover:-translate-y-1 group">
                                 <i data-lucide="flame" class="w-10 h-10 mx-auto text-coral-500 mb-2"></i>
                                 <span class="font-display font-bold block text-plum-900 text-xl">Heavy Thinker</span>
+                                <span class="text-xs font-medium text-plum-900/50">Heavy strategy</span>
                             </button>
                         </div>
                     </div>
 
-                    <!-- Step 4: Tag Vibe Preference -->
+                    <!-- Step 4: Overhauled Vibe Selection -->
                     <div class="wizard-step hidden space-y-6" data-step="4">
                         <div class="text-center space-y-2">
                             <h2 class="text-3xl font-display font-bold text-plum-900">What vibe are you craving?</h2>
-                            <p class="text-sm font-medium text-plum-900/60">Select a preferred game tag for tonight.</p>
+                            <p class="text-sm font-medium text-plum-900/60">Choose how your group wants to play tonight.</p>
                         </div>
-                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-2">
-                            <button onclick="wizardData.tag = 'Casual'; finishWizard();" class="p-4 bg-sand/40 hover:bg-teal-100/60 border-2 border-plum-900/10 hover:border-teal-500 rounded-2xl text-center transition transform hover:-translate-y-1">
-                                <span class="font-display font-bold block text-plum-900 text-base">Casual</span>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                            <button onclick="wizardData.vibe = 'cooperative'; finishWizard();" class="p-5 bg-sand/40 hover:bg-teal-100/60 border-2 border-plum-900/10 hover:border-teal-500 rounded-2xl text-center transition transform hover:-translate-y-1">
+                                <span class="font-display font-bold block text-plum-900 text-lg">Let's All Work Together</span>
+                                <span class="text-xs text-plum-900/60 mt-1 block">Cooperative games</span>
                             </button>
-                            <button onclick="wizardData.tag = 'Cooperative'; finishWizard();" class="p-4 bg-sand/40 hover:bg-teal-100/60 border-2 border-plum-900/10 hover:border-teal-500 rounded-2xl text-center transition transform hover:-translate-y-1">
-                                <span class="font-display font-bold block text-plum-900 text-base">Cooperative</span>
+                            <button onclick="wizardData.vibe = 'teams'; finishWizard();" class="p-5 bg-sand/40 hover:bg-amber-100/60 border-2 border-plum-900/10 hover:border-amber-400 rounded-2xl text-center transition transform hover:-translate-y-1">
+                                <span class="font-display font-bold block text-plum-900 text-lg">Teams</span>
+                                <span class="text-xs text-plum-900/60 mt-1 block">Team-based games</span>
                             </button>
-                            <button onclick="wizardData.tag = 'Party'; finishWizard();" class="p-4 bg-sand/40 hover:bg-amber-100/60 border-2 border-plum-900/10 hover:border-amber-400 rounded-2xl text-center transition transform hover:-translate-y-1">
-                                <span class="font-display font-bold block text-plum-900 text-base">Party</span>
+                            <button onclick="wizardData.vibe = 'me_against_the_world'; finishWizard();" class="p-5 bg-sand/40 hover:bg-coral-100/60 border-2 border-plum-900/10 hover:border-coral-400 rounded-2xl text-center transition transform hover:-translate-y-1">
+                                <span class="font-display font-bold block text-plum-900 text-lg">Me Against the World</span>
+                                <span class="text-xs text-plum-900/60 mt-1 block">Competitive individual games</span>
                             </button>
-                            <button onclick="wizardData.tag = 'Family'; finishWizard();" class="p-4 bg-sand/40 hover:bg-amber-100/60 border-2 border-plum-900/10 hover:border-amber-400 rounded-2xl text-center transition transform hover:-translate-y-1">
-                                <span class="font-display font-bold block text-plum-900 text-base">Family</span>
-                            </button>
-                            <button onclick="wizardData.tag = 'Strategy'; finishWizard();" class="p-4 bg-sand/40 hover:bg-coral-100/60 border-2 border-plum-900/10 hover:border-coral-400 rounded-2xl text-center transition transform hover:-translate-y-1">
-                                <span class="font-display font-bold block text-plum-900 text-base">Strategy</span>
-                            </button>
-                            <button onclick="wizardData.tag = 'Any'; finishWizard();" class="p-4 bg-sand/40 hover:bg-plum-100/60 border-2 border-plum-900/10 hover:border-plum-500 rounded-2xl text-center transition transform hover:-translate-y-1">
-                                <span class="font-display font-bold block text-plum-900 text-base">Surprise Us!</span>
+                            <button onclick="wizardData.vibe = 'family'; finishWizard();" class="p-5 bg-sand/40 hover:bg-plum-100/60 border-2 border-plum-900/10 hover:border-plum-500 rounded-2xl text-center transition transform hover:-translate-y-1">
+                                <span class="font-display font-bold block text-plum-900 text-lg">The Kids are Playing Too</span>
+                                <span class="text-xs text-plum-900/60 mt-1 block">Family-friendly games</span>
                             </button>
                         </div>
                     </div>
@@ -374,7 +376,7 @@
         <p>Game Night Companion &bull; Built for Board Game Enthusiasts & Families</p>
     </footer>
 
-    <!-- ADD/EDIT GAME MODAL (Includes Tag Checkboxes) -->
+    <!-- ADD/EDIT GAME MODAL -->
     <div id="game-modal" class="fixed inset-0 z-50 bg-plum-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4 overflow-y-auto">
         <div class="bg-white border-2 border-plum-900 rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-fun-lg relative space-y-6">
             <div class="flex items-center justify-between">
@@ -418,7 +420,7 @@
                     </div>
                 </div>
 
-                <!-- Tags Selection Checkboxes -->
+                <!-- Tags Selection Checkboxes (Updated with Mid-Weight and Teams) -->
                 <div>
                     <label class="block text-xs font-display font-bold text-plum-900 uppercase tracking-wider mb-2">Assign Tags *</label>
                     <div class="grid grid-cols-3 gap-2 bg-sand/30 p-3 rounded-2xl border-2 border-plum-900/10 text-xs font-semibold">
@@ -430,7 +432,8 @@
                         <label class="flex items-center space-x-2 cursor-pointer"><input type="checkbox" name="game-tag" value="Strategy" class="rounded text-coral-500 focus:ring-coral-500"><span>Strategy</span></label>
                         <label class="flex items-center space-x-2 cursor-pointer"><input type="checkbox" name="game-tag" value="Heavy" class="rounded text-coral-500 focus:ring-coral-500"><span>Heavy</span></label>
                         <label class="flex items-center space-x-2 cursor-pointer"><input type="checkbox" name="game-tag" value="Silly" class="rounded text-coral-500 focus:ring-coral-500"><span>Silly</span></label>
-                        <label class="flex items-center space-x-2 cursor-pointer"><input type="checkbox" name="game-tag" value="Luck" class="rounded text-coral-500 focus:ring-coral-500"><span>Luck</span></label>
+                        <label class="flex items-center space-x-2 cursor-pointer"><input type="checkbox" name="game-tag" value="Mid-Weight" class="rounded text-coral-500 focus:ring-coral-500"><span>Mid-Weight</span></label>
+                        <label class="flex items-center space-x-2 cursor-pointer"><input type="checkbox" name="game-tag" value="Teams" class="rounded text-coral-500 focus:ring-coral-500"><span>Teams</span></label>
                     </div>
                 </div>
 
@@ -470,15 +473,15 @@
         const db = firebase.firestore();
 
         let games = [];
-        let wizardData = { players: null, time: null, weight: null, tag: null };
+        let wizardData = { players: null, time: null, weight: null, vibe: null };
         let currentWizardStepNumber = 1;
 
-        // Default seed data with multiple tags
+        // Default seed data using new tags
         const DEFAULT_GAMES = [
-            { title: 'Wingspan', minPlayers: 1, idealPlayers: 3, maxPlayers: 5, playTime: 70, weight: 2.45, tags: ['Strategy', 'Family', 'Casual'], image: 'https://images.unsplash.com/photo-1610890716171-6b1bb98ffd09?w=600&auto=format&fit=crop&q=80' },
-            { title: 'Catan', minPlayers: 3, idealPlayers: 3, maxPlayers: 4, playTime: 90, weight: 2.32, tags: ['Strategy', 'Family', 'Luck'], image: 'https://images.unsplash.com/photo-1563089145-599997674d42?w=600&auto=format&fit=crop&q=80' },
-            { title: 'Codenames', minPlayers: 2, idealPlayers: 6, maxPlayers: 8, playTime: 15, weight: 1.26, tags: ['Party', 'Casual', 'Silly'], image: 'https://images.unsplash.com/photo-1632501641765-e568de284004?w=600&auto=format&fit=crop&q=80' },
-            { title: 'Pandemic', minPlayers: 2, idealPlayers: 4, maxPlayers: 4, playTime: 45, weight: 2.41, tags: ['Cooperative', 'Strategy'], image: 'https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?w=600&auto=format&fit=crop&q=80' },
+            { title: 'Wingspan', minPlayers: 1, idealPlayers: 3, maxPlayers: 5, playTime: 70, weight: 2.45, tags: ['Strategy', 'Family', 'Casual', 'Mid-Weight'], image: 'https://images.unsplash.com/photo-1610890716171-6b1bb98ffd09?w=600&auto=format&fit=crop&q=80' },
+            { title: 'Catan', minPlayers: 3, idealPlayers: 3, maxPlayers: 4, playTime: 90, weight: 2.32, tags: ['Strategy', 'Family', 'Mid-Weight'], image: 'https://images.unsplash.com/photo-1563089145-599997674d42?w=600&auto=format&fit=crop&q=80' },
+            { title: 'Codenames', minPlayers: 2, idealPlayers: 6, maxPlayers: 8, playTime: 15, weight: 1.26, tags: ['Party', 'Casual', 'Silly', 'Teams'], image: 'https://images.unsplash.com/photo-1632501641765-e568de284004?w=600&auto=format&fit=crop&q=80' },
+            { title: 'Pandemic', minPlayers: 2, idealPlayers: 4, maxPlayers: 4, playTime: 45, weight: 2.41, tags: ['Cooperative', 'Strategy', 'Mid-Weight'], image: 'https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?w=600&auto=format&fit=crop&q=80' },
             { title: 'Azul', minPlayers: 2, idealPlayers: 2, maxPlayers: 4, playTime: 45, weight: 1.76, tags: ['Family', 'Casual'], image: 'https://images.unsplash.com/photo-1588699661386-749e728416d7?w=600&auto=format&fit=crop&q=80' },
             { title: 'Gloomhaven', minPlayers: 1, idealPlayers: 2, maxPlayers: 4, playTime: 120, weight: 3.8, tags: ['Strategy', 'Heavy', 'Cooperative'], image: 'https://images.unsplash.com/photo-1511193311914-0346f16efe90?w=600&auto=format&fit=crop&q=80' },
             { title: 'Ticket to Ride', minPlayers: 2, idealPlayers: 4, maxPlayers: 5, playTime: 60, weight: 1.84, tags: ['Family', 'Casual', 'Card'], image: 'https://images.unsplash.com/photo-1569683795645-b62e50fbf103?w=600&auto=format&fit=crop&q=80' }
@@ -501,7 +504,6 @@
                 }
                 games = snapshot.docs.map(doc => {
                     const data = doc.data();
-                    // Backward compatibility if older documents used single 'genre'
                     if (!data.tags && data.genre) {
                         data.tags = [data.genre];
                     }
@@ -530,7 +532,7 @@
             lucide.createIcons();
         }
 
-        // Render Cards (Showing Multiple Tags as Pills)
+        // Render Cards
         function renderGames(data) {
             const grid = document.getElementById('game-grid');
             const emptyState = document.getElementById('empty-state');
@@ -623,7 +625,6 @@
         function openAddGameModal() {
             document.getElementById('game-id').value = '';
             document.getElementById('game-form').reset();
-            // Uncheck all tags
             document.querySelectorAll('input[name="game-tag"]').forEach(cb => cb.checked = false);
             document.getElementById('modal-title').innerText = 'Add New Board Game';
             document.getElementById('game-modal').classList.remove('hidden');
@@ -645,8 +646,7 @@
             document.getElementById('form-weight').value = game.weight;
             document.getElementById('form-image').value = game.image || '';
 
-            // Checkboxes for tags
-            const gameTags = game.tags || (game.genre ? [game.genre] : []);
+            const gameTags = game.tags || [];
             document.querySelectorAll('input[name="game-tag"]').forEach(cb => {
                 cb.checked = gameTags.includes(cb.value);
             });
@@ -666,7 +666,6 @@
             const weight = parseFloat(document.getElementById('form-weight').value);
             const image = document.getElementById('form-image').value;
 
-            // Collect selected tags
             const tags = Array.from(document.querySelectorAll('input[name="game-tag"]:checked')).map(cb => cb.value);
 
             if (minPlayers > maxPlayers) {
@@ -752,13 +751,13 @@
         }
 
         function resetWizard() {
-            wizardData = { players: null, time: null, weight: null, tag: null };
+            wizardData = { players: null, time: null, weight: null, vibe: null };
             currentWizardStepNumber = 1;
             updateWizardView();
             document.getElementById('wizard-results').classList.add('hidden');
         }
 
-        // Wizard scoring factoring in Tag preference and Ideal Players
+        // Wizard scoring incorporating updated Brainpower and Vibe mappings
         function finishWizard() {
             document.getElementById('wizard-results').classList.remove('hidden');
             const container = document.getElementById('wizard-results-container');
@@ -766,17 +765,17 @@
 
             let matches = games.map(game => {
                 let score = 0;
-                const pCount = wizardData.players; // 1 to 7
+                const pCount = wizardData.players;
 
                 const supportsPlayers = pCount === 7 ? game.maxPlayers >= 7 : (pCount >= game.minPlayers && pCount <= game.maxPlayers);
 
                 if (supportsPlayers) {
-                    score += 30; // base points for supporting player count
+                    score += 30;
                     if (game.idealPlayers) {
                         if (pCount === 7 && game.idealPlayers >= 7) {
                             score += 40;
                         } else if (game.idealPlayers === pCount) {
-                            score += 40; // Bonus for hitting ideal count
+                            score += 40;
                         }
                     }
                 } else {
@@ -785,12 +784,30 @@
 
                 if (wizardData.time && game.playTime <= wizardData.time + 15) score += 30;
 
-                if (wizardData.weight === 'light' && game.weight <= 2.2) score += 30;
-                else if (wizardData.weight === 'medium' && game.weight > 2.2 && game.weight <= 3.5) score += 30;
-                else if (wizardData.weight === 'heavy' && game.weight > 3.5) score += 30;
+                const gameTags = game.tags || [];
 
-                // Tag matching
-                if (wizardData.tag === 'Any' || (game.tags && game.tags.includes(wizardData.tag))) score += 25;
+                // Brainpower associations (Step 3)
+                if (wizardData.weight === 'light') {
+                    if (game.weight <= 2.2) score += 20;
+                    if (gameTags.includes('Casual')) score += 25;
+                } else if (wizardData.weight === 'medium') {
+                    if (game.weight > 2.2 && game.weight <= 3.5) score += 20;
+                    if (gameTags.includes('Mid-Weight')) score += 25;
+                } else if (wizardData.weight === 'heavy') {
+                    if (game.weight > 3.5) score += 20;
+                    if (gameTags.includes('Heavy')) score += 25;
+                }
+
+                // Vibe associations (Step 4)
+                if (wizardData.vibe === 'cooperative') {
+                    if (gameTags.includes('Cooperative')) score += 40;
+                } else if (wizardData.vibe === 'teams') {
+                    if (gameTags.includes('Teams')) score += 40;
+                } else if (wizardData.vibe === 'me_against_the_world') {
+                    if (!gameTags.includes('Cooperative') && !gameTags.includes('Teams')) score += 30;
+                } else if (wizardData.vibe === 'family') {
+                    if (gameTags.includes('Family')) score += 40;
+                }
 
                 return { game, score };
             });
